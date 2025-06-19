@@ -14,10 +14,10 @@ public class ApplicationAuditAware implements AuditorAware<Integer> {
 	@NonNull
 	@Override
 	public Optional<Integer> getCurrentAuditor() {
-		Authentication authentication = SecurityContextHolder.getContext()
-			.getAuthentication();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-		if (authentication == null || !authentication.isAuthenticated()
+		if (authentication == null
+			|| !authentication.isAuthenticated()
 			|| authentication instanceof AnonymousAuthenticationToken
 		) {
 			return Optional.empty();
