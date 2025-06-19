@@ -20,11 +20,11 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class Feedback extends BaseEntity {
 
-    private Double rating;
-    private String comment;
+	private Double rating;
+	private String comment;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
 }

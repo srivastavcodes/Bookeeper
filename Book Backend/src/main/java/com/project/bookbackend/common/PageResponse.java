@@ -11,13 +11,13 @@ import java.util.List;
 @AllArgsConstructor
 public class PageResponse<T> {
 
-    private List<T> content;
-    private int number;
-    private int size;
+	private List<T> content;
+	private int number;
+	private int size;
 
-    private long totalElements;
-    private int totalPages;
+	private long totalElements;
+	private int totalPages;
 
-    private boolean first;
-    private boolean last;
+	private boolean first;
+	private boolean last;
 }

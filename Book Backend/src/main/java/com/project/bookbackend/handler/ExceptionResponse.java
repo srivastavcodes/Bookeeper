@@ -13,10 +13,10 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ExceptionResponse {
 
-    private Integer errorCode;
-    private String errorBody;
-    private String errDescription;
+	private Integer errorCode;
+	private String errorBody;
+	private String errDescription;
 
-    private Map<String, String> validationErrors;
-    private Map<String, String> errorMap;
+	private Map<String, String> validationErrors;
+	private Map<String, String> errorMap;
 }

@@ -12,30 +12,30 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("auth")
 public class AuthenticationController {
 
-    private final AuthenticationService authService;
+	private final AuthenticationService authService;
 
-    @Autowired
-    public AuthenticationController(AuthenticationService authService) {
-        this.authService = authService;
-    }
+	@Autowired
+	public AuthenticationController(AuthenticationService authService) {
+		this.authService = authService;
+	}
 
-    @PostMapping("/register")
-    public ResponseEntity<?> registerUser(
-        @RequestBody @Valid RegisterRequest req) throws MessagingException {
+	@PostMapping("/register")
+	public ResponseEntity<?> registerUser(
+		@RequestBody @Valid RegisterRequest req) throws MessagingException {
 
-        authService.registerUser(req);
-        return ResponseEntity.accepted().build();
-    }
+		authService.registerUser(req);
+		return ResponseEntity.accepted().build();
+	}
 
-    @PostMapping("/verify")
-    public ResponseEntity<AuthResponse> verifyUser(@RequestBody @Valid AuthRequest req) {
-        return ResponseEntity.ok(authService.verifyUser(req));
-    }
+	@PostMapping("/verify")
+	public ResponseEntity<AuthResponse> verifyUser(@RequestBody @Valid AuthRequest req) {
+		return ResponseEntity.ok(authService.verifyUser(req));
+	}
 
-    @GetMapping("/activate-account")
-    public void activateAccount(@RequestParam String token) throws MessagingException {
-        authService.activateAccount(token);
-    }
+	@GetMapping("/activate-account")
+	public void activateAccount(@RequestParam String token) throws MessagingException {
+		authService.activateAccount(token);
+	}
 }
 
 

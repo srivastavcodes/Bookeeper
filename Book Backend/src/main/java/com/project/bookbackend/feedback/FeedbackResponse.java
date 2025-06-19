@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class FeedbackResponse {
 
-    private Double rating;
-    private String comment;
-    private boolean ownFeedback;
+	private Double rating;
+	private String comment;
+	private boolean ownFeedback;
 }

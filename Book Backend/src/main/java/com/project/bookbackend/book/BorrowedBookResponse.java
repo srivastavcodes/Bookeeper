@@ -9,14 +9,14 @@ import lombok.*;
 @AllArgsConstructor
 public class BorrowedBookResponse {
 
-    private Integer id;
-    private String title;
+	private Integer id;
+	private String title;
 
-    private String authorName;
-    private String isbn;
+	private String authorName;
+	private String isbn;
 
-    private double rating;
+	private double rating;
 
-    private boolean returned;
-    private boolean returnApproved;
+	private boolean returned;
+	private boolean returnApproved;
 }

@@ -21,89 +21,89 @@ import static org.springframework.http.HttpStatus.*;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(LockedException.class)
-    public ResponseEntity<ExceptionResponse> handleLockedException(LockedException lkdExp) {
+	@ExceptionHandler(LockedException.class)
+	public ResponseEntity<ExceptionResponse> handleLockedException(LockedException lkdExp) {
 
-        return ResponseEntity.status(UNAUTHORIZED).body(
-            ExceptionResponse.builder().errorCode(ACCOUNT_LOCKED.getErrorCode())
-                .errDescription(ACCOUNT_LOCKED.getErrDescription())
-                .errorBody(lkdExp.getMessage())
-                .build()
-        );
-    }
+		return ResponseEntity.status(UNAUTHORIZED).body(
+			ExceptionResponse.builder().errorCode(ACCOUNT_LOCKED.getErrorCode())
+				.errDescription(ACCOUNT_LOCKED.getErrDescription())
+				.errorBody(lkdExp.getMessage())
+				.build()
+		);
+	}
 
-    @ExceptionHandler(DisabledException.class)
-    public ResponseEntity<ExceptionResponse> handleDisabledException(DisabledException dsbldExp) {
+	@ExceptionHandler(DisabledException.class)
+	public ResponseEntity<ExceptionResponse> handleDisabledException(DisabledException dsbldExp) {
 
-        return ResponseEntity.status(UNAUTHORIZED).body(
-            ExceptionResponse.builder().errorCode(ACCOUNT_DISABLED.getErrorCode())
-                .errDescription(ACCOUNT_DISABLED.getErrDescription())
-                .errorBody(dsbldExp.getMessage())
-                .build()
-        );
-    }
+		return ResponseEntity.status(UNAUTHORIZED).body(
+			ExceptionResponse.builder().errorCode(ACCOUNT_DISABLED.getErrorCode())
+				.errDescription(ACCOUNT_DISABLED.getErrDescription())
+				.errorBody(dsbldExp.getMessage())
+				.build()
+		);
+	}
 
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ExceptionResponse> handleBadCredentialsException() {
+	@ExceptionHandler(BadCredentialsException.class)
+	public ResponseEntity<ExceptionResponse> handleBadCredentialsException() {
 
-        return ResponseEntity.status(UNAUTHORIZED).body(
-            ExceptionResponse.builder().errorCode(BAD_CREDENTIALS.getErrorCode())
-                .errDescription(BAD_CREDENTIALS.getErrDescription())
-                .errorBody("Login and/or Password is incorrect.")
-                .build()
-        );
-    }
+		return ResponseEntity.status(UNAUTHORIZED).body(
+			ExceptionResponse.builder().errorCode(BAD_CREDENTIALS.getErrorCode())
+				.errDescription(BAD_CREDENTIALS.getErrDescription())
+				.errorBody("Login and/or Password is incorrect.")
+				.build()
+		);
+	}
 
-    @ExceptionHandler(MessagingException.class)
-    public ResponseEntity<ExceptionResponse> handleMessagingException(MessagingException msgExp) {
+	@ExceptionHandler(MessagingException.class)
+	public ResponseEntity<ExceptionResponse> handleMessagingException(MessagingException msgExp) {
 
-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(
-            ExceptionResponse.builder().errorBody(msgExp.getMessage())
-                .build()
-        );
-    }
+		return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(
+			ExceptionResponse.builder().errorBody(msgExp.getMessage())
+				.build()
+		);
+	}
 
-    @ExceptionHandler(OperationNotPermittedException.class)
-    public ResponseEntity<ExceptionResponse> handleNotPermittedException(
-        OperationNotPermittedException onpExp
-    ) {
-        log.error("Operation was not permitted::{}", onpExp.getMessage());
+	@ExceptionHandler(OperationNotPermittedException.class)
+	public ResponseEntity<ExceptionResponse> handleNotPermittedException(
+		OperationNotPermittedException onpExp
+	) {
+		log.error("Operation was not permitted::{}", onpExp.getMessage());
 
-        return ResponseEntity.status(BAD_REQUEST).body(
-            ExceptionResponse.builder().errorBody(onpExp.getMessage())
-                .build()
-        );
-    }
+		return ResponseEntity.status(BAD_REQUEST).body(
+			ExceptionResponse.builder().errorBody(onpExp.getMessage())
+				.build()
+		);
+	}
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> handleArgumentNotValidException(
-        MethodArgumentNotValidException argInvalidExp
-    ) {
-        Map<String, String> validationErrors = new HashMap<>();
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ExceptionResponse> handleArgumentNotValidException(
+		MethodArgumentNotValidException argInvalidExp
+	) {
+		Map<String, String> validationErrors = new HashMap<>();
 
-        argInvalidExp.getBindingResult().getAllErrors().forEach(error -> {
-            var errorMessage = error.getDefaultMessage();
-            var errorCode = error.getCode();
-            validationErrors.put(errorCode, errorMessage);
-        });
+		argInvalidExp.getBindingResult().getAllErrors().forEach(error -> {
+			var errorMessage = error.getDefaultMessage();
+			var errorCode = error.getCode();
+			validationErrors.put(errorCode, errorMessage);
+		});
 
-        return ResponseEntity.status(BAD_REQUEST).body(
-            ExceptionResponse.builder().validationErrors(validationErrors)
-                .build()
-        );
-    }
+		return ResponseEntity.status(BAD_REQUEST).body(
+			ExceptionResponse.builder().validationErrors(validationErrors)
+				.build()
+		);
+	}
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse> handleException(Exception exp) {
-        log.error("Exception::{}", exp.getMessage());
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ExceptionResponse> handleException(Exception exp) {
+		log.error("Exception::{}", exp.getMessage());
 
-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(
-            ExceptionResponse.builder()
-                .errDescription("This is an internal error. Contact support.")
-                .errorBody(exp.getMessage())
-                .build()
-        );
-    }
+		return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(
+			ExceptionResponse.builder()
+				.errDescription("This is an internal error. Contact support.")
+				.errorBody(exp.getMessage())
+				.build()
+		);
+	}
 }
 
 

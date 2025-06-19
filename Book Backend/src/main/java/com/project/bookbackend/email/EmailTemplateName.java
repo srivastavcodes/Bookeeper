@@ -5,11 +5,11 @@ import lombok.Getter;
 @Getter
 public enum EmailTemplateName {
 
-    ACTIVATE_ACCOUNT("activate_account");
+	ACTIVATE_ACCOUNT("activate_account");
 
-    private final String templateName;
+	private final String templateName;
 
-    EmailTemplateName(String templateName) {
-        this.templateName = templateName;
-    }
+	EmailTemplateName(String templateName) {
+		this.templateName = templateName;
+	}
 }

@@ -23,54 +23,54 @@ import static org.springframework.http.HttpHeaders.*;
 @Configuration
 public class BeansConfig {
 
-    private final UserDetailsService userDetailsService;
+	private final UserDetailsService userDetailsService;
 
-    @Autowired
-    public BeansConfig(UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+	@Autowired
+	public BeansConfig(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
+	}
 
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+	@Bean
+	public AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
+		authProvider.setUserDetailsService(userDetailsService);
+		authProvider.setPasswordEncoder(passwordEncoder());
+		return authProvider;
+	}
 
-    @Bean
-    public AuditorAware<Integer> auditorAware() {
-        return new ApplicationAuditAware();
-    }
+	@Bean
+	public AuditorAware<Integer> auditorAware() {
+		return new ApplicationAuditAware();
+	}
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig
-    ) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig
+	) throws Exception {
+		return authConfig.getAuthenticationManager();
+	}
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(10);
+	}
 
-    @Bean
-    public CorsFilter corsFilter() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        final CorsConfiguration config = new CorsConfiguration();
+	@Bean
+	public CorsFilter corsFilter() {
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		final CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-        config.setAllowedHeaders(Arrays.asList(
-            ORIGIN, CONTENT_TYPE, ACCEPT, AUTHORIZATION
-        ));
-        config.setAllowedMethods(Arrays.asList(
-            "GET", "POST", "PUT", "DELETE", "PATCH"
-        ));
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+		config.setAllowCredentials(true);
+		config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+		config.setAllowedHeaders(Arrays.asList(
+			ORIGIN, CONTENT_TYPE, ACCEPT, AUTHORIZATION
+		));
+		config.setAllowedMethods(Arrays.asList(
+			"GET", "POST", "PUT", "DELETE", "PATCH"
+		));
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
+	}
 }
 
 

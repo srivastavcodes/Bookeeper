@@ -23,23 +23,23 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAT;
+	@CreatedDate
+	@Column(nullable = false, updatable = false)
+	private LocalDateTime createdAT;
 
-    @LastModifiedDate
-    @Column(insertable = false)
-    private LocalDateTime lastModifiedAT;
+	@LastModifiedDate
+	@Column(insertable = false)
+	private LocalDateTime lastModifiedAT;
 
-    @CreatedBy
-    @Column(nullable = false, updatable = false)
-    private Integer createdBy;
+	@CreatedBy
+	@Column(nullable = false, updatable = false)
+	private Integer createdBy;
 
-    @LastModifiedBy
-    @Column(insertable = false)
-    private Integer lastModifiedBy;
+	@LastModifiedBy
+	@Column(insertable = false)
+	private Integer lastModifiedBy;
 }

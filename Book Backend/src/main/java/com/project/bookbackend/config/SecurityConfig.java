@@ -21,25 +21,25 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final JwtFilter jwtFilter;
-    private final AuthenticationProvider authenticationProvider;
+	private final JwtFilter jwtFilter;
+	private final AuthenticationProvider authenticationProvider;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
-        security.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(req -> req.requestMatchers(
-                    "/auth/**", "/v2/api-docs", "/v3/api-docs",
-                    "/v3/api-docs/**", "/swagger-resources",
-                    "/swagger-resources/**", "/configuration/ui",
-                    "/configuration/security", "/swagger-ui/**",
-                    "/webjars/**", "/swagger-ui.html"
-                ).permitAll().anyRequest().authenticated()
-            );
-        security.httpBasic(Customizer.withDefaults())
-            .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity security) throws Exception {
+		security.cors(Customizer.withDefaults()).csrf(AbstractHttpConfigurer::disable)
+			.authorizeHttpRequests(req -> req.requestMatchers(
+					"/auth/**", "/v2/api-docs", "/v3/api-docs",
+					"/v3/api-docs/**", "/swagger-resources",
+					"/swagger-resources/**", "/configuration/ui",
+					"/configuration/security", "/swagger-ui/**",
+					"/webjars/**", "/swagger-ui.html"
+				).permitAll().anyRequest().authenticated()
+			);
+		security.httpBasic(Customizer.withDefaults())
+			.sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+			.authenticationProvider(authenticationProvider)
+			.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return security.build();
-    }
+		return security.build();
+	}
 }

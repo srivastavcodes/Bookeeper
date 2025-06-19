@@ -1,6 +1,5 @@
 package com.project.bookbackend.history;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.project.bookbackend.book.Book;
 import com.project.bookbackend.common.BaseEntity;
@@ -22,16 +21,16 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class BookTransactionHistory extends BaseEntity {
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
-    @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "book_id")
+	private Book book;
 
-    private boolean returned;
-    private boolean returnApproved;
+	private boolean returned;
+	private boolean returnApproved;
 }

@@ -21,53 +21,53 @@ import static java.lang.System.currentTimeMillis;
 @RequiredArgsConstructor
 public class FileStorageService {
 
-    @Value("${application.file.upload.photo-output-path}")
-    private String fileUploadPath;
+	@Value("${application.file.upload.photo-output-path}")
+	private String fileUploadPath;
 
-    public String saveBookCover(@NonNull Integer userId, @NonNull MultipartFile bookCover) {
-        final String fileUploadSubPath = "users" + separator + userId;
-        return uploadFile(bookCover, fileUploadSubPath);
-    }
+	public String saveBookCover(@NonNull Integer userId, @NonNull MultipartFile bookCover) {
+		final String fileUploadSubPath = "users" + separator + userId;
+		return uploadFile(bookCover, fileUploadSubPath);
+	}
 
-    private String uploadFile(@NonNull MultipartFile bookCover, @NonNull String fileUploadSubPath) {
-        String finalUploadPath = fileUploadPath + separator + fileUploadSubPath;
-        File targetFolder = new File(finalUploadPath);
+	private String uploadFile(@NonNull MultipartFile bookCover, @NonNull String fileUploadSubPath) {
+		String finalUploadPath = fileUploadPath + separator + fileUploadSubPath;
+		File targetFolder = new File(finalUploadPath);
 
-        if (!targetFolder.exists()) {
-            //mkdirs() creates folder and all it's subfolders if necessary. mkdirs() is recursive, mkdir() is not.
-            boolean folderCreated = targetFolder.mkdirs();
+		if (!targetFolder.exists()) {
+			//mkdirs() creates folder and all it's subfolders if necessary. mkdirs() is recursive, mkdir() is not.
+			boolean folderCreated = targetFolder.mkdirs();
 
-            if (!folderCreated) {
-                log.warn("Failed to create target folder.");
-                return null;
-            }
-        }
-        final String fileExtension = getFileExtension(bookCover.getOriginalFilename());
-        // ./uploads/users/1/238949223.jpg -> example format.
+			if (!folderCreated) {
+				log.warn("Failed to create target folder.");
+				return null;
+			}
+		}
+		final String fileExtension = getFileExtension(bookCover.getOriginalFilename());
+		// ./uploads/users/1/238949223.jpg -> example format.
 
-        String targetFilePath = finalUploadPath + separator + currentTimeMillis() + "." + fileExtension;
-        Path targetPath = Paths.get(targetFilePath);
+		String targetFilePath = finalUploadPath + separator + currentTimeMillis() + "." + fileExtension;
+		Path targetPath = Paths.get(targetFilePath);
 
-        try {
-            Files.write(targetPath, bookCover.getBytes());
-            log.info("File saved to::{}", targetFilePath);
-            return targetFilePath;
-        } catch (IOException ioExp) {
-            log.error("File was not saved::", ioExp);
-        }
-        return null;
-    }
+		try {
+			Files.write(targetPath, bookCover.getBytes());
+			log.info("File saved to::{}", targetFilePath);
+			return targetFilePath;
+		} catch (IOException ioExp) {
+			log.error("File was not saved::", ioExp);
+		}
+		return null;
+	}
 
-    private String getFileExtension(String fileName) {
-        if (fileName == null || fileName.isEmpty()) {
-            return "";
-        }
-        int lastDotIndex = fileName.lastIndexOf(".");
-        if (lastDotIndex == -1) {
-            return "";
-        }
-        return fileName.substring(lastDotIndex + 1).toLowerCase();
-    }
+	private String getFileExtension(String fileName) {
+		if (fileName == null || fileName.isEmpty()) {
+			return "";
+		}
+		int lastDotIndex = fileName.lastIndexOf(".");
+		if (lastDotIndex == -1) {
+			return "";
+		}
+		return fileName.substring(lastDotIndex + 1).toLowerCase();
+	}
 }
 
 

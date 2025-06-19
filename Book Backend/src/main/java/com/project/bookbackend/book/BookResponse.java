@@ -9,18 +9,18 @@ import lombok.Setter;
 @Builder
 public class BookResponse {
 
-    private Integer id;
-    private String title;
+	private Integer id;
+	private String title;
 
-    private String authorName;
-    private String isbn;
-    private String synopsis;
+	private String authorName;
+	private String isbn;
+	private String synopsis;
 
-    private byte[] bookCover;
-    private double rating;
+	private byte[] bookCover;
+	private double rating;
 
-    private String owner;
+	private String owner;
 
-    private boolean isArchived;
-    private boolean isShareable;
+	private boolean isArchived;
+	private boolean isShareable;
 }
