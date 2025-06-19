@@ -16,8 +16,8 @@ spring:
   mail:
     host: localhost
     port: 1025
-    username: ali
-    password: ali
+    username: parth
+    password: password
     properties:
       mail:
         smtp:
@@ -42,11 +42,3 @@ application:
   file:
     upload:
       photo-output-path: ./uploads
-
-
-
-
-
-
-
-
