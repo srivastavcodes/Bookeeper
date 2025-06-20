@@ -45,6 +45,7 @@ public class FileStorageService {
 		// ./uploads/users/1/238949223.jpg -> example format.
 
 		String targetFilePath = finalUploadPath + File.separator + currentTimeMillis() + "." + fileExtension;
+		//noinspection JvmTaintAnalysis
 		Path targetPath = Paths.get(targetFilePath);
 
 		try {
