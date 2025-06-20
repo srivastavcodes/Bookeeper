@@ -13,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static java.io.File.separator;
 import static java.lang.System.currentTimeMillis;
 
 @Slf4j
@@ -25,12 +24,12 @@ public class FileStorageService {
 	private String fileUploadPath;
 
 	public String saveBookCover(@NonNull Integer userId, @NonNull MultipartFile bookCover) {
-		final String fileUploadSubPath = "users" + separator + userId;
+		final String fileUploadSubPath = "users" + File.separator + userId;
 		return uploadFile(bookCover, fileUploadSubPath);
 	}
 
 	private String uploadFile(@NonNull MultipartFile bookCover, @NonNull String fileUploadSubPath) {
-		String finalUploadPath = fileUploadPath + separator + fileUploadSubPath;
+		String finalUploadPath = fileUploadPath + File.separator + fileUploadSubPath;
 		File targetFolder = new File(finalUploadPath);
 
 		if (!targetFolder.exists()) {
@@ -45,7 +44,7 @@ public class FileStorageService {
 		final String fileExtension = getFileExtension(bookCover.getOriginalFilename());
 		// ./uploads/users/1/238949223.jpg -> example format.
 
-		String targetFilePath = finalUploadPath + separator + currentTimeMillis() + "." + fileExtension;
+		String targetFilePath = finalUploadPath + File.separator + currentTimeMillis() + "." + fileExtension;
 		Path targetPath = Paths.get(targetFilePath);
 
 		try {
