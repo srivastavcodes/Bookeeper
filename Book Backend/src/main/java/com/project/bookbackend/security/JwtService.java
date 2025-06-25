@@ -21,19 +21,6 @@ public class JwtService {
 	@Value("${application.security.jwt.secret-key}")
 	private String secretKey;
 
-/*
-    private JwtService() {
-        try {
-            KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
-            SecretKey key = keyGen.generateKey();
-
-            secretKey = Base64.getEncoder().encodeToString(key.getEncoded());
-        } catch (NoSuchAlgorithmException algoNotFoundExp) {
-            throw new RuntimeException(algoNotFoundExp);
-        }
-    }
-*/
-
 	@SuppressWarnings("unused")
 	public String generateToken(UserDetails userDetails) {
 		return generateToken(new HashMap<>(), userDetails);
