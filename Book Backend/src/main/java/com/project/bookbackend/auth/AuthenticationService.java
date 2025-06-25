@@ -109,12 +109,14 @@ public class AuthenticationService {
 
 		if (LocalDateTime.now().isAfter(savedToken.getExpiresAT())) {
 			sendValidationEmail(savedToken.getUser());
+			tokenRepository.delete(savedToken);
+
 			throw new RuntimeException("Token Expired. New Token Sent.");
 		}
-		validateUserAndSaveToken(savedToken);
+		validateUserAndDeleteToken(savedToken);
 	}
 
-	private void validateUserAndSaveToken(Token savedToken) {
+	private void validateUserAndDeleteToken(Token savedToken) {
 		var user = userRepository.findById(savedToken.getUser().getId())
 			.orElseThrow(() -> new UsernameNotFoundException("User not found."));
 
@@ -122,7 +124,7 @@ public class AuthenticationService {
 		userRepository.save(user);
 
 		savedToken.setValidatedAT(LocalDateTime.now());
-		tokenRepository.save(savedToken);
+		tokenRepository.delete(savedToken);
 	}
 }
 
