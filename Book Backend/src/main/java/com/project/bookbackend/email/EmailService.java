@@ -41,7 +41,9 @@ public class EmailService {
 		);
 		String template = generateEmailContent(templateName, properties);
 
-		setMimeMessageContent(mimeMessage, template);
+		MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, MULTIPART_MODE_MIXED, UTF_8.name());
+		messageHelper.setText(template, true);
+
 		mailSender.send(mimeMessage);
 	}
 
@@ -72,12 +74,5 @@ public class EmailService {
 		Context context = new Context();
 		context.setVariables(properties);
 		return templateEngine.process(templateName, context);
-	}
-
-	private void setMimeMessageContent(MimeMessage mimeMessage, String template) throws MessagingException {
-		MimeMessageHelper messageHelper = new MimeMessageHelper(
-			mimeMessage, MULTIPART_MODE_MIXED, UTF_8.name()
-		);
-		messageHelper.setText(template, true);
 	}
 }
