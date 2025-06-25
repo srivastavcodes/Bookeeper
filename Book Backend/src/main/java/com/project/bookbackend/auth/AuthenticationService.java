@@ -123,7 +123,6 @@ public class AuthenticationService {
 		user.setAccountEnabled(true);
 		userRepository.save(user);
 
-		savedToken.setValidatedAT(LocalDateTime.now());
 		tokenRepository.delete(savedToken);
 	}
 }
